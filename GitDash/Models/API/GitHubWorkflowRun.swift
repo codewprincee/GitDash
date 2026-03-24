@@ -1,6 +1,8 @@
 import Foundation
 
-struct GitHubWorkflowRun: Codable, Identifiable {
+struct GitHubWorkflowRun: Codable, Identifiable, Hashable {
+    static func == (lhs: GitHubWorkflowRun, rhs: GitHubWorkflowRun) -> Bool { lhs.id == rhs.id }
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
     let id: Int
     let name: String?
     let headBranch: String?
@@ -14,7 +16,7 @@ struct GitHubWorkflowRun: Codable, Identifiable {
     let event: String  // push, pull_request, etc.
     let repository: WorkflowRepo?
 
-    struct WorkflowRepo: Codable {
+    struct WorkflowRepo: Codable, Hashable {
         let fullName: String
     }
 }

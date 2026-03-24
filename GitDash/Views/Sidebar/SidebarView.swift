@@ -3,16 +3,49 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(AppState.self) private var appState
     @Environment(AuthenticationManager.self) private var auth
+    @State private var notifService = NotificationService()
 
     var body: some View {
         @Bindable var state = appState
 
         List(selection: $state.selectedSection) {
             Section("GitHub") {
-                ForEach(AppState.SidebarSection.allCases.filter { $0 != .settings }) { section in
-                    Label(section.title, systemImage: section.icon)
-                        .tag(section)
+                Label("Dashboard", systemImage: "square.grid.2x2")
+                    .tag(AppState.SidebarSection.dashboard)
+
+                Label {
+                    HStack {
+                        Text("Pull Requests")
+                        Spacer()
+                    }
+                } icon: {
+                    Image(systemName: "arrow.triangle.branch")
                 }
+                .tag(AppState.SidebarSection.pullRequests)
+
+                Label("Actions", systemImage: "gearshape.2")
+                    .tag(AppState.SidebarSection.actions)
+
+                Label("Issues", systemImage: "exclamationmark.circle")
+                    .tag(AppState.SidebarSection.issues)
+
+                Label {
+                    HStack {
+                        Text("Notifications")
+                        Spacer()
+                        if notifService.unreadCount > 0 {
+                            Text("\(notifService.unreadCount)")
+                                .font(.caption2.bold())
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(.red, in: Capsule())
+                        }
+                    }
+                } icon: {
+                    Image(systemName: "bell")
+                }
+                .tag(AppState.SidebarSection.notifications)
             }
 
             Section {
@@ -32,9 +65,10 @@ struct SidebarView: View {
                     .frame(width: 28, height: 28)
                     .clipShape(Circle())
 
-                    Text(user.login)
-                        .font(.caption.bold())
-                        .lineLimit(1)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(user.name ?? user.login).font(.caption.bold()).lineLimit(1)
+                        Text("@\(user.login)").font(.caption2).foregroundStyle(.secondary).lineLimit(1)
+                    }
 
                     Spacer()
                 }
@@ -42,6 +76,9 @@ struct SidebarView: View {
                 .padding(.vertical, 8)
                 .background(.bar)
             }
+        }
+        .task {
+            await notifService.fetchNotifications()
         }
     }
 }

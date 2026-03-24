@@ -41,6 +41,9 @@
 		A10000000000000000000020 /* PRDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000022 /* PRDiffView.swift */; };
 		A10000000000000000000021 /* PollingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000023 /* PollingManager.swift */; };
 		A10000000000000000000022 /* RepoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000024 /* RepoDetailView.swift */; };
+		A10000000000000000000023 /* ActionsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000025 /* ActionsDetailView.swift */; };
+		A10000000000000000000024 /* IssueCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000026 /* IssueCreateView.swift */; };
+		A10000000000000000000025 /* IssueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000027 /* IssueDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +83,9 @@
 		B10000000000000000000022 /* PRDiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRDiffView.swift; sourceTree = "<group>"; };
 		B10000000000000000000023 /* PollingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingManager.swift; sourceTree = "<group>"; };
 		B10000000000000000000024 /* RepoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailView.swift; sourceTree = "<group>"; };
+		B10000000000000000000025 /* ActionsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsDetailView.swift; sourceTree = "<group>"; };
+		B10000000000000000000026 /* IssueCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCreateView.swift; sourceTree = "<group>"; };
+		B10000000000000000000027 /* IssueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailView.swift; sourceTree = "<group>"; };
 		C10000000000000000000001 /* GitDash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitDash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -237,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000017 /* ActionsListView.swift */,
+				B10000000000000000000025 /* ActionsDetailView.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -245,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000018 /* IssueListView.swift */,
+				B10000000000000000000026 /* IssueCreateView.swift */,
+				B10000000000000000000027 /* IssueDetailView.swift */,
 			);
 			path = Issues;
 			sourceTree = "<group>";
@@ -407,6 +416,9 @@
 				A10000000000000000000020 /* PRDiffView.swift in Sources */,
 				A10000000000000000000021 /* PollingManager.swift in Sources */,
 				A10000000000000000000022 /* RepoDetailView.swift in Sources */,
+				A10000000000000000000023 /* ActionsDetailView.swift in Sources */,
+				A10000000000000000000024 /* IssueCreateView.swift in Sources */,
+				A10000000000000000000025 /* IssueDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
