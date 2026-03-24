@@ -1,6 +1,8 @@
 import Foundation
 
-struct GitHubPullRequest: Codable, Identifiable {
+struct GitHubPullRequest: Codable, Identifiable, Hashable {
+    static func == (lhs: GitHubPullRequest, rhs: GitHubPullRequest) -> Bool { lhs.id == rhs.id }
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
     let id: Int
     let number: Int
     let title: String

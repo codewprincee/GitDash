@@ -37,6 +37,9 @@
 		A1000000000000000000001C /* SharedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001C /* SharedViews.swift */; };
 		A1000000000000000000001D /* Color+GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001D /* Color+GitHub.swift */; };
 		A1000000000000000000001E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001E /* Assets.xcassets */; };
+		A1000000000000000000001F /* PRDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000021 /* PRDetailView.swift */; };
+		A10000000000000000000020 /* PRDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000022 /* PRDiffView.swift */; };
+		A10000000000000000000021 /* PollingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000023 /* PollingManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +75,9 @@
 		B1000000000000000000001E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1000000000000000000001F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B10000000000000000000020 /* GitDash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitDash.entitlements; sourceTree = "<group>"; };
+		B10000000000000000000021 /* PRDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRDetailView.swift; sourceTree = "<group>"; };
+		B10000000000000000000022 /* PRDiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRDiffView.swift; sourceTree = "<group>"; };
+		B10000000000000000000023 /* PollingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingManager.swift; sourceTree = "<group>"; };
 		C10000000000000000000001 /* GitDash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitDash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,6 +182,7 @@
 				B10000000000000000000010 /* PullRequestService.swift */,
 				B10000000000000000000011 /* ActionsService.swift */,
 				B10000000000000000000012 /* NotificationService.swift */,
+				B10000000000000000000023 /* PollingManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -217,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000016 /* PRListView.swift */,
+				B10000000000000000000021 /* PRDetailView.swift */,
+				B10000000000000000000022 /* PRDiffView.swift */,
 			);
 			path = PullRequests;
 			sourceTree = "<group>";
@@ -391,6 +400,9 @@
 				A1000000000000000000001B /* SettingsView.swift in Sources */,
 				A1000000000000000000001C /* SharedViews.swift in Sources */,
 				A1000000000000000000001D /* Color+GitHub.swift in Sources */,
+				A1000000000000000000001F /* PRDetailView.swift in Sources */,
+				A10000000000000000000020 /* PRDiffView.swift in Sources */,
+				A10000000000000000000021 /* PollingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

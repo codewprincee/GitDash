@@ -4,31 +4,47 @@ struct PRListView: View {
     @Environment(AuthenticationManager.self) private var auth
     @State private var prService = PullRequestService()
     @State private var selectedTab = 0
+    @State private var selectedPR: GitHubPullRequest?
 
     var body: some View {
-        VStack(spacing: 0) {
-            Picker("", selection: $selectedTab) {
-                Text("Created by Me (\(prService.createdPRs.count))").tag(0)
-                Text("Review Requested (\(prService.reviewRequestedPRs.count))").tag(1)
-            }
-            .pickerStyle(.segmented)
-            .padding()
-
-            let prs = selectedTab == 0 ? prService.createdPRs : prService.reviewRequestedPRs
-
-            if prService.isLoading && prs.isEmpty {
-                LoadingStateView(message: "Fetching pull requests...")
-            } else if prs.isEmpty {
-                EmptyStateView(title: "No Pull Requests", subtitle: "No open PRs found.", systemImage: "arrow.triangle.branch")
-            } else {
-                List(prs) { pr in
-                    PRRowView(pr: pr)
+        NavigationSplitView {
+            VStack(spacing: 0) {
+                Picker("", selection: $selectedTab) {
+                    Text("Created (\(prService.createdPRs.count))").tag(0)
+                    Text("Review (\(prService.reviewRequestedPRs.count))").tag(1)
                 }
-                .listStyle(.inset)
+                .pickerStyle(.segmented)
+                .padding()
+
+                let prs = selectedTab == 0 ? prService.createdPRs : prService.reviewRequestedPRs
+
+                if prService.isLoading && prs.isEmpty {
+                    LoadingStateView(message: "Fetching pull requests...")
+                } else if prs.isEmpty {
+                    EmptyStateView(title: "No Pull Requests", subtitle: "No open PRs found.", systemImage: "arrow.triangle.branch")
+                } else {
+                    List(prs, selection: $selectedPR) { pr in
+                        PRRowView(pr: pr)
+                            .tag(pr)
+                    }
+                    .listStyle(.inset)
+                }
+            }
+            .navigationSplitViewColumnWidth(min: 300, ideal: 380, max: 500)
+        } detail: {
+            if let pr = selectedPR {
+                PRDetailView(pr: pr)
+            } else {
+                EmptyStateView(title: "Select a PR", subtitle: "Choose a pull request to view details and diff.", systemImage: "arrow.triangle.pull")
             }
         }
         .navigationTitle("Pull Requests")
         .task {
+            if let user = auth.currentUser {
+                await prService.fetchPRs(username: user.login)
+            }
+        }
+        .refreshable {
             if let user = auth.currentUser {
                 await prService.fetchPRs(username: user.login)
             }
@@ -43,7 +59,7 @@ struct PRRowView: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Image(systemName: "arrow.triangle.pull")
-                    .foregroundStyle(.green)
+                    .foregroundStyle(pr.state == "open" ? .green : .purple)
                 Text(pr.title)
                     .font(.body.weight(.medium))
                     .lineLimit(1)
@@ -69,6 +85,11 @@ struct PRRowView: View {
                 }
 
                 Spacer()
+
+                if let adds = pr.additions, let dels = pr.deletions {
+                    Text("+\(adds)").font(.caption2).foregroundStyle(.green)
+                    Text("-\(dels)").font(.caption2).foregroundStyle(.red)
+                }
 
                 RelativeTimeText(dateString: pr.updatedAt)
             }
