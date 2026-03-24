@@ -1,6 +1,8 @@
 import Foundation
 
-struct GitHubRepository: Codable, Identifiable {
+struct GitHubRepository: Codable, Identifiable, Hashable {
+    static func == (lhs: GitHubRepository, rhs: GitHubRepository) -> Bool { lhs.id == rhs.id }
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
     let id: Int
     let name: String
     let fullName: String
@@ -25,7 +27,7 @@ struct GitHubRepository: Codable, Identifiable {
     }
 }
 
-struct GitHubOwner: Codable {
+struct GitHubOwner: Codable, Hashable {
     let login: String
     let avatarUrl: String
 }
