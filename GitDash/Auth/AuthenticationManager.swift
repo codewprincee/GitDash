@@ -28,6 +28,29 @@ final class AuthenticationManager {
     var currentUser: GitHubUser?
     private var pollTask: Task<Void, Never>?
 
+    // MARK: - Token Login
+
+    func loginWithToken(_ token: String) async {
+        let trimmed = token.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            state = .error("Token cannot be empty")
+            return
+        }
+
+        state = .loading
+        await GitHubAPIClient.shared.setToken(trimmed)
+
+        do {
+            let user: GitHubUser = try await GitHubAPIClient.shared.get("/user")
+            let _ = KeychainManager.save(token: trimmed)
+            currentUser = user
+            state = .authenticated
+        } catch {
+            await GitHubAPIClient.shared.clearToken()
+            state = .error("Invalid token: \(error.localizedDescription)")
+        }
+    }
+
     // MARK: - Restore Session
 
     func restoreSession() async {
