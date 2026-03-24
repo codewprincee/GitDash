@@ -1,0 +1,13 @@
+## Xcode
+build/
+DerivedData/
+*.xcuserdata
+xcuserdata/
+
+## macOS
+.DS_Store
+._*
+
+## Misc
+*.swp
+*~
